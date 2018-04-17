@@ -1,20 +1,25 @@
 package DiGraph_A5;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DiGraph implements DiGraphInterface {
 
   // in here go all your data and methods for the graph
   /* A HashMap to store all nodes */
-  Map<Long, String> nodes;
+  Map<Long, Node> nodes;
+  /* A record of nodes in an array list */
+  List<Node> _nodes;
 	
 	
   public DiGraph ( ) { // default constructor
     // explicitly include this
     // we need to have the default constructor
     // if you then write others, this one will still be there
-	  nodes = new HashMap<Long, String>();
+	  nodes = new HashMap<Long, Node>();
+	  _nodes = new ArrayList<Node>();
   }
 
 @Override
@@ -24,11 +29,13 @@ public boolean addNode(long idNum, String label) {
 		return false;
 	}
 	// returns false if label is not unique (or is null)
-	if (label == null || nodes.containsValue(label)) {
+	if (label == null || containsLabel(label)) {
 		return false;
 	}
 	// returns true if node is successfully added 
-	nodes.put(idNum, label);
+	Node new_node = new Node(label);
+	nodes.put(idNum, new_node);
+	_nodes.add(new_node);
 	return true;
 }
 
@@ -62,4 +69,29 @@ public long numEdges() {
 }
   
   // rest of your code to implement the various operations
+
+/* check if label is in nodes */
+private boolean containsLabel(String label) {
+	boolean contains = false;
+	for (Node node : _nodes) {
+		if (node.label == label) contains = true;
+		break;
+	}
+	return contains;
+}
+
+}
+
+class Node {
+	String label;
+	List<Edge> edges;
+	
+	public Node(String label) {
+		this.label = label;
+		this.edges = new ArrayList<Edge>();
+	}
+}
+
+class Edge {
+	
 }
