@@ -11,6 +11,7 @@ public class DiGraph implements DiGraphInterface {
   Map<String, List<Edge>> nodes;
   Map<Long, String> node_ids;
   List<String> _nodes;
+  List<String> _nodes_removed;
   Map<Long, Edge> edge_ids;
 
   public DiGraph ( ) { // default constructor
@@ -20,6 +21,7 @@ public class DiGraph implements DiGraphInterface {
 	nodes = new HashMap<String, List<Edge>>();
 	node_ids = new HashMap<Long, String>();
 	_nodes = new ArrayList<String>();
+	_nodes_removed = new ArrayList<String>();
 	edge_ids = new HashMap<Long, Edge>();
   }
 
@@ -56,8 +58,13 @@ public boolean addEdge(long idNum, String sLabel, String dLabel, long weight, St
 
 @Override
 public boolean delNode(String label) {
-	// TODO Auto-generated method stub
-	return false;
+//    return false if the node does not exist
+	if (!nodes.containsKey(label)) {return false;}
+//    return true if the node is found and successfully removed
+	/* does not remove id from node_ids hashmap */
+	nodes.remove(label);
+	_nodes_removed.add(label);
+	return true;
 }
 
 @Override
