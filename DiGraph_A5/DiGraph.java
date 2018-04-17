@@ -69,6 +69,12 @@ public long numEdges() {
 }
   
   // rest of your code to implement the various operations
+/* print the graph */
+public void print() {
+	for (Node node : _nodes) {
+		System.out.println(node.idNum + " " + node.label);
+	}
+}
 
 /* check if label is in nodes */
 private boolean containsLabel(String label) {
