@@ -8,7 +8,7 @@ import java.util.Map;
 public class DiGraph implements DiGraphInterface {
 
   // in here go all your data and methods for the graph
-  Map<String, List<Edge>> nodes;
+  Map<String, Map<String, Edge>> nodes;
   Map<Long, String> node_ids;
   List<String> _nodes;
   List<String> _nodes_removed;
@@ -18,7 +18,7 @@ public class DiGraph implements DiGraphInterface {
     // explicitly include this
     // we need to have the default constructor
     // if you then write others, this one will still be there
-	nodes = new HashMap<String, List<Edge>>();
+	nodes = new HashMap<String, Map<String, Edge>>();
 	node_ids = new HashMap<Long, String>();
 	_nodes = new ArrayList<String>();
 	_nodes_removed = new ArrayList<String>();
@@ -33,7 +33,7 @@ public boolean addNode(long idNum, String label) {
 	if (label == null || nodes.containsKey(label)) {return false;}
 //    returns true if node is successfully added
 	node_ids.put(idNum, label);
-	nodes.put(label, new ArrayList<Edge>());
+	nodes.put(label, new HashMap<String, Edge>());
 	_nodes.add(label);
 	return true;
 }
@@ -47,12 +47,10 @@ public boolean addEdge(long idNum, String sLabel, String dLabel, long weight, St
 //    returns false if destination node is not in graph
 	if (!nodes.containsKey(dLabel)) {return false;}
 //    returns false is there already is an edge between these 2 nodes
-	for (Edge edge : nodes.get(sLabel)) {
-		if (edge.dLabel == dLabel) {return false;}
-	}
+	if (nodes.get(sLabel).get(dLabel) == null) {return false;}
 //    returns true if edge is successfully added 
 	Edge edge = new Edge(idNum, sLabel, dLabel, weight, eLabel);
-	nodes.get(sLabel).add(edge);
+	nodes.get(sLabel).put(dLabel, edge);
 	return true;
 }
 
