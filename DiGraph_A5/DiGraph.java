@@ -51,8 +51,7 @@ public boolean delEdge(String sLabel, String dLabel) {
 
 @Override
 public long numNodes() {
-	// TODO Auto-generated method stub
-	return 0;
+	return nodes.size();
 }
 
 @Override
