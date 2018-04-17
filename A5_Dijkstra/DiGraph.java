@@ -140,7 +140,15 @@ public class DiGraph implements DiGraph_Interface {
 			}
 		}
 		for (Node node : _nodes) {
-			System.out.println(node.idNum);
+			System.out.println("(" + node.idNum + ")" + node.label);
+			nodes.get(node.label).forEach(
+					(des, edge) -> 
+					System.out.println(
+							"  (" + edge.idNum + ")--"
+							+ (edge.eLabel == null ? "" : (edge.eLabel + ","))
+							+ edge.weight + "-->" + edge.dLabel)
+			);
+			System.out.println();
 		}
 	}
 }
