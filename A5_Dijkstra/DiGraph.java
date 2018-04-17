@@ -126,6 +126,14 @@ public class DiGraph implements DiGraph_Interface {
 	}
 
 	// rest of your code to implement the various operations
+	public void print() {
+		for (String node : _nodes_removed) {
+			_nodes.remove(node);
+		}
+		for (String node : _nodes) {
+			System.out.println(nodes.get(node));
+		}
+	}
 }
 
 class Edge {
