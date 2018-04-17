@@ -43,9 +43,9 @@ public boolean addEdge(long idNum, String sLabel, String dLabel, long weight, St
 //    returns false if edge number is not unique or less than 0
 	if (idNum < 0 || edge_ids.containsKey(idNum)) {return false;}
 //    returns false if source node is not in graph
-	if (nodes.containsKey(sLabel)) {return false;}
+	if (!nodes.containsKey(sLabel)) {return false;}
 //    returns false if destination node is not in graph
-	if (nodes.containsKey(dLabel)) {return false;}
+	if (!nodes.containsKey(dLabel)) {return false;}
 //    returns false is there already is an edge between these 2 nodes
 	for (Edge edge : nodes.get(sLabel)) {
 		if (edge.dLabel == dLabel) {return false;}
@@ -69,7 +69,9 @@ public boolean delNode(String label) {
 
 @Override
 public boolean delEdge(String sLabel, String dLabel) {
-	// TODO Auto-generated method stub
+//    return false if the edge does not exist
+	if (nodes.containsKey(sLabel)) {}
+//    return true if the edge is found and successfully removed
 	return false;
 }
 
