@@ -101,5 +101,9 @@ class Node {
 }
 
 class Edge {
-	
+	long idNum;
+	Node src;
+	Node des;
+	long weight;
+	String eLabel;
 }
