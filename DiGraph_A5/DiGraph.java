@@ -70,7 +70,8 @@ public boolean delNode(String label) {
 @Override
 public boolean delEdge(String sLabel, String dLabel) {
 //    return false if the edge does not exist
-	if (nodes.containsKey(sLabel)) {}
+	if (!nodes.containsKey(sLabel) || !nodes.containsKey(dLabel)) {return false;}
+
 //    return true if the edge is found and successfully removed
 	return false;
 }
