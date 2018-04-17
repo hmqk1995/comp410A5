@@ -18,8 +18,17 @@ public class DiGraph implements DiGraphInterface {
 
 @Override
 public boolean addNode(long idNum, String label) {
-	// TODO Auto-generated method stub
-	return false;
+	// returns false if node number is not unique, or less than 0
+	if (idNum < 0 || nodes.containsKey(idNum)) {
+		return false;
+	}
+	// returns false if label is not unique (or is null)
+	if (label == null || nodes.containsValue(label)) {
+		return false;
+	}
+	// returns true if node is successfully added 
+	nodes.put(idNum, label);
+	return true;
 }
 
 @Override
