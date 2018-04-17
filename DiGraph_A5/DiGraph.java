@@ -33,7 +33,7 @@ public boolean addNode(long idNum, String label) {
 		return false;
 	}
 	// returns true if node is successfully added 
-	Node new_node = new Node(label);
+	Node new_node = new Node(idNum, label);
 	nodes.put(idNum, new_node);
 	_nodes.add(new_node);
 	return true;
@@ -83,10 +83,12 @@ private boolean containsLabel(String label) {
 }
 
 class Node {
+	long idNum;
 	String label;
 	List<Edge> edges;
 	
-	public Node(String label) {
+	public Node(long idNum, String label) {
+		this.idNum = idNum;
 		this.label = label;
 		this.edges = new ArrayList<Edge>();
 	}
