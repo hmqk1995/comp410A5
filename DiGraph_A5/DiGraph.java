@@ -10,9 +10,10 @@ public class DiGraph implements DiGraphInterface {
   // in here go all your data and methods for the graph
   Map<String, Map<String, Edge>> nodes;
   Map<Long, String> node_ids;
+  Map<Long, Edge> edge_ids;
   List<String> _nodes;
   List<String> _nodes_removed;
-  Map<Long, Edge> edge_ids;
+  int num_of_edges;
 
   public DiGraph ( ) { // default constructor
     // explicitly include this
@@ -20,9 +21,10 @@ public class DiGraph implements DiGraphInterface {
     // if you then write others, this one will still be there
 	nodes = new HashMap<String, Map<String, Edge>>();
 	node_ids = new HashMap<Long, String>();
+	edge_ids = new HashMap<Long, Edge>();
 	_nodes = new ArrayList<String>();
 	_nodes_removed = new ArrayList<String>();
-	edge_ids = new HashMap<Long, Edge>();
+	num_of_edges = 0;
   }
 
 @Override
@@ -47,10 +49,11 @@ public boolean addEdge(long idNum, String sLabel, String dLabel, long weight, St
 //    returns false if destination node is not in graph
 	if (!nodes.containsKey(dLabel)) {return false;}
 //    returns false is there already is an edge between these 2 nodes
-	if (nodes.get(sLabel).get(dLabel) == null) {return false;}
+	if (nodes.get(sLabel).get(dLabel) != null) {return false;}
 //    returns true if edge is successfully added 
 	Edge edge = new Edge(idNum, sLabel, dLabel, weight, eLabel);
 	nodes.get(sLabel).put(dLabel, edge);
+	num_of_edges += 1;
 	return true;
 }
 
@@ -60,6 +63,7 @@ public boolean delNode(String label) {
 	if (!nodes.containsKey(label)) {return false;}
 //    return true if the node is found and successfully removed
 	/* does not remove id from node_ids hashmap */
+	num_of_edges -= nodes.get(label).size();
 	nodes.remove(label);
 	_nodes_removed.add(label);
 	return true;
@@ -69,21 +73,22 @@ public boolean delNode(String label) {
 public boolean delEdge(String sLabel, String dLabel) {
 //    return false if the edge does not exist
 	if (!nodes.containsKey(sLabel) || !nodes.containsKey(dLabel)) {return false;}
-
+	if (nodes.get(sLabel).get(dLabel) == null) {return false;}
 //    return true if the edge is found and successfully removed
-	return false;
+	nodes.get(sLabel).remove(dLabel);
+	num_of_edges -= 1;
+	return true;
 }
 
 @Override
 public long numNodes() {
-	// TODO Auto-generated method stub
-	return 0;
+	return nodes.size();
 }
 
 @Override
 public long numEdges() {
 	// TODO Auto-generated method stub
-	return 0;
+	return num_of_edges;
 }
   
   // rest of your code to implement the various operations
