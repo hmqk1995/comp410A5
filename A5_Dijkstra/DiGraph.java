@@ -116,7 +116,6 @@ public class DiGraph implements DiGraph_Interface {
 
 	@Override
 	public long numEdges() {
-		// TODO Auto-generated method stub
 		return num_of_edges;
 	}
 
