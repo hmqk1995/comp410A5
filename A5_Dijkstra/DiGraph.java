@@ -11,7 +11,7 @@ public class DiGraph implements DiGraph_Interface {
 	Map<String, Map<String, Edge>> nodes;
 	Map<Long, String> node_ids;
 	Map<Long, Edge> edge_ids;
-	List<String> _nodes;
+	List<Node> _nodes;
 	List<String> _nodes_removed;
 	int num_of_edges;
 
@@ -22,7 +22,7 @@ public class DiGraph implements DiGraph_Interface {
 		nodes = new HashMap<String, Map<String, Edge>>();
 		node_ids = new HashMap<Long, String>();
 		edge_ids = new HashMap<Long, Edge>();
-		_nodes = new ArrayList<String>();
+		_nodes = new ArrayList<Node>();
 		_nodes_removed = new ArrayList<String>();
 		num_of_edges = 0;
 	}
@@ -45,7 +45,7 @@ public class DiGraph implements DiGraph_Interface {
 		// returns true if node is successfully added
 		node_ids.put(idNum, label);
 		nodes.put(label, new HashMap<String, Edge>());
-		_nodes.add(label);
+		_nodes.add(new Node(idNum, label));
 		return true;
 	}
 
@@ -127,12 +127,31 @@ public class DiGraph implements DiGraph_Interface {
 
 	// rest of your code to implement the various operations
 	public void print() {
-		for (String node : _nodes_removed) {
-			_nodes.remove(node);
+		for (String node_label : _nodes_removed) {
+			int remove_index = Integer.MAX_VALUE;
+			for (int i = 0; i < _nodes.size(); i++) {
+				if (_nodes.get(i).label == node_label) {
+					remove_index = i;
+					break;
+				}
+			}
+			if (remove_index != Integer.MAX_VALUE) {
+				_nodes.remove(remove_index);
+			}
 		}
-		for (String node : _nodes) {
-			System.out.println(nodes.get(node));
+		for (Node node : _nodes) {
+			System.out.println(node.idNum);
 		}
+	}
+}
+
+class Node {
+	long idNum;
+	String label;
+
+	Node(long idNum, String label) {
+		this.idNum = idNum;
+		this.label = label;
 	}
 }
 
