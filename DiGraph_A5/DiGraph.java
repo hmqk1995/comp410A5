@@ -6,14 +6,15 @@ import java.util.Map;
 public class DiGraph implements DiGraphInterface {
 
   // in here go all your data and methods for the graph
-	/* A HashMap to store all nodes */
-	Map<Long, String> nodes = new HashMap<Long, String>();
+  /* A HashMap to store all nodes */
+  Map<Long, String> nodes;
 	
 	
   public DiGraph ( ) { // default constructor
     // explicitly include this
     // we need to have the default constructor
     // if you then write others, this one will still be there
+	  nodes = new HashMap<Long, String>();
   }
 
 @Override
