@@ -45,7 +45,7 @@ public class DiGraphPlayground {
     	  String sr = r.nextString();
     	  d.addNode(1, sr);
     	  String mr = "";
-    	  for (int i = 0; i < 2000000; i++) {
+    	  for (int i = 0; i < 1000000; i++) {
     		  mr = r.nextString();
     		  d.addNode(i+2, mr);
     		  d.addEdge(i, sr, mr, 0, null);
