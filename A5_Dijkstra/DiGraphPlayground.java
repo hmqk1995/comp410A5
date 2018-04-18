@@ -78,6 +78,10 @@ public class DiGraphPlayground {
 		d.addEdge(7, "Pittsboro", "Sanford", 15, null);
 		d.addEdge(8, "Sanford", "Los_angeles", 3012, null);
 		d.print();
+		ShortestPathInfo[] table = d.shortestPath("Pittsboro");
+		for (int i = 0; i < table.length; i++) {
+			System.out.println(d.shortestPath("Pittsboro")[i]);
+		}
 	}
 }
 

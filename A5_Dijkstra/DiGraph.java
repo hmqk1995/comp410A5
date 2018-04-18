@@ -124,8 +124,7 @@ public class DiGraph implements DiGraph_Interface {
 	public ShortestPathInfo[] shortestPath(String label) {
 		Map<String, Boolean> known = new HashMap<String, Boolean>();
 		Map<String, Long> dist = new HashMap<String, Long>();
-		ShortestPathInfo[] table = new ShortestPathInfo[(int) numNodes()];
-		int table_counts = 0;
+		List<ShortestPathInfo> table = new ArrayList<ShortestPathInfo>();
 		Heap_Interface heap = new MinBinHeap();
 		heap.insert(new EntryPair(label, 0));
 		while(heap.size() != 0) {
@@ -136,8 +135,7 @@ public class DiGraph implements DiGraph_Interface {
 				continue;
 			}
 			known.put(n, true);
-			table[table_counts] = new ShortestPathInfo(n, d);
-			table_counts++;
+			table.add(new ShortestPathInfo(n, d));
 			nodes.get(n).forEach((des, edge) -> {
 				if (known.get(des) == null || known.get(des) == false) {
 					if (dist.get(des) == null || dist.get(des) > d + edge.weight) {
@@ -147,7 +145,14 @@ public class DiGraph implements DiGraph_Interface {
 				}
 			});
 		}
-		return table;
+		nodes.forEach((node, edge) -> {
+			if (known.get(node) == null) {
+				table.add(new ShortestPathInfo(node, -1));
+			}
+		});
+		ShortestPathInfo[] return_table = new ShortestPathInfo[table.size()];
+		return_table = table.toArray(return_table);
+		return return_table;
 	}
 
 	// rest of your code to implement the various operations
