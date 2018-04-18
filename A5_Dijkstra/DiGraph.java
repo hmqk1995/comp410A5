@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import MinBinHeap_A3.*;
 
 public class DiGraph implements DiGraph_Interface {
 
@@ -121,8 +122,32 @@ public class DiGraph implements DiGraph_Interface {
 
 	@Override
 	public ShortestPathInfo[] shortestPath(String label) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Boolean> known = new HashMap<String, Boolean>();
+		Map<String, Long> dist = new HashMap<String, Long>();
+		ShortestPathInfo[] table = new ShortestPathInfo[(int) numNodes()];
+		int table_counts = 0;
+		Heap_Interface heap = new MinBinHeap();
+		heap.insert(new EntryPair(label, 0));
+		while(heap.size() != 0) {
+			String n = heap.getMin().getValue();
+			long d = heap.getMin().getPriority();
+			heap.delMin();
+			if (known.get(n) != null && known.get(n) == true) {
+				continue;
+			}
+			known.put(n, true);
+			table[table_counts] = new ShortestPathInfo(n, d);
+			table_counts++;
+			nodes.get(n).forEach((des, edge) -> {
+				if (known.get(des) == null || known.get(des) == false) {
+					if (dist.get(des) == null || dist.get(des) > d + edge.weight) {
+						dist.put(des, d + edge.weight);
+						heap.insert(new EntryPair(des, d + edge.weight));
+					}
+				}
+			});
+		}
+		return table;
 	}
 
 	// rest of your code to implement the various operations
